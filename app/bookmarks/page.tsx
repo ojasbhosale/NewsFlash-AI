@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
-import { BookOpen, ArrowLeft, Trash2, ExternalLink, Calendar } from "lucide-react"
+import { BookOpen, Trash2, ExternalLink, Calendar } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -90,19 +90,9 @@ export default function BookmarksPage() {
         currentPath="/bookmarks"
       />
 
-      <main className="pt-20">
+      <main className="pt-2">
         <div className="container mx-auto mobile-padding py-8">
-          {/* Breadcrumb Navigation */}
-          <div className="mb-6">
-            <Button
-              variant="ghost"
-              onClick={() => router.push("/news")}
-              className="glass hover:bg-white/30 dark:hover:bg-black/30 mb-4"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to News
-            </Button>
-          </div>
+          
 
           <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
             {/* Bookmarks Content */}

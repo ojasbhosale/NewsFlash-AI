@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react"
 import { useRouter } from "next/navigation"
-import { BarChart3, ArrowLeft, TrendingUp, Clock, Target, Award, Calendar, BookOpen } from "lucide-react"
+import { BarChart3, TrendingUp, Clock, Target, Award, Calendar, BookOpen } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
@@ -75,19 +75,9 @@ export default function AnalyticsPage() {
         currentPath="/analytics"
       />
 
-      <main className="pt-20">
+      <main className="pt-2">
         <div className="container mx-auto mobile-padding py-8">
-          {/* Breadcrumb Navigation */}
-          <div className="mb-6">
-            <Button
-              variant="ghost"
-              onClick={() => router.push("/news")}
-              className="glass hover:bg-white/30 dark:hover:bg-black/30 mb-4"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to News
-            </Button>
-          </div>
+          
 
           {/* Page Header */}
           <div className="text-center space-y-4 py-8 mb-8">

@@ -1,7 +1,8 @@
 "use client"
 
 import type React from "react"
-import { useEffect, useState } from "react"
+
+import { useState } from "react"
 import { Search, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -43,11 +44,6 @@ const COUNTRIES = [
 export function NewsFilters({ onFiltersChange, isLoading }: NewsFiltersProps) {
   const [filters, setFilters] = useState<FilterOptions>({})
   const [searchQuery, setSearchQuery] = useState("")
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   const updateFilters = (newFilters: Partial<FilterOptions>) => {
     const updatedFilters = { ...filters, ...newFilters }
@@ -80,9 +76,7 @@ export function NewsFilters({ onFiltersChange, isLoading }: NewsFiltersProps) {
       {/* Search Bar */}
       <div className="flex gap-2">
         <div className="relative flex-1">
-          {mounted && (
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          )}
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             placeholder="Search news..."
             value={searchQuery}
@@ -147,14 +141,10 @@ export function NewsFilters({ onFiltersChange, isLoading }: NewsFiltersProps) {
       {activeFiltersCount > 0 && (
         <div className="flex flex-wrap gap-2">
           {filters.category && (
-            <Badge variant="secondary">
-              Category: {CATEGORIES.find((c) => c.value === filters.category)?.label}
-            </Badge>
+            <Badge variant="secondary">Category: {CATEGORIES.find((c) => c.value === filters.category)?.label}</Badge>
           )}
           {filters.country && (
-            <Badge variant="secondary">
-              Country: {COUNTRIES.find((c) => c.value === filters.country)?.label}
-            </Badge>
+            <Badge variant="secondary">Country: {COUNTRIES.find((c) => c.value === filters.country)?.label}</Badge>
           )}
           {filters.q && <Badge variant="secondary">Search: {filters.q}</Badge>}
         </div>

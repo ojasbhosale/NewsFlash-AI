@@ -78,7 +78,7 @@ export async function summarizeArticle(text: string): Promise<string> {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: `sm_api_input=${encodeURIComponent(text.substring(0, 2000))}`, 
+      body: `sm_api_input=${encodeURIComponent(text.substring(0, 2000))}`, // Limit text length
     })
 
     if (!response.ok) {
@@ -94,7 +94,7 @@ export async function summarizeArticle(text: string): Promise<string> {
 
     return fallbackSummary(text)
   } catch (error) {
-    // Always return fallback summary if SMMRY fails
+    console.error("SMMRY API error:", error)
     return fallbackSummary(text)
   }
 }

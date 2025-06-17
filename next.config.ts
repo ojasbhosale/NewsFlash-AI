@@ -9,10 +9,15 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: [
-      'newsdata.io',
-      'cdn.newsdata.io',
-      'static.newsdata.io'
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**', // Allow all HTTPS domains
+      },
+      {
+        protocol: 'http',
+        hostname: '**', // Allow all HTTP domains (if needed)
+      }
     ],
     unoptimized: true,
   },

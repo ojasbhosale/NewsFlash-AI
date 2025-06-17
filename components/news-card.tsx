@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image"
 import { ExternalLink, Clock, Eye, EyeOff, Loader2 } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -94,19 +95,18 @@ export function NewsCard({ article }: NewsCardProps) {
       </CardHeader>
 
       <CardContent className="space-y-4">
-        {article.image_url && (
-          <div className="aspect-video w-full overflow-hidden rounded-md">
-            <img
+          <div className="aspect-video w-full overflow-hidden rounded-md relative">
+            <Image
               src={article.image_url || "/placeholder.svg"}
               alt={article.title}
-              className="h-full w-full object-cover transition-transform hover:scale-105"
+              fill
+              className="object-cover transition-transform hover:scale-105"
               onError={(e) => {
                 const target = e.target as HTMLImageElement
                 target.style.display = "none"
               }}
             />
           </div>
-        )}
 
         {article.description && <CardDescription className="line-clamp-3">{article.description}</CardDescription>}
 

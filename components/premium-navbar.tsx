@@ -82,7 +82,7 @@ export function PremiumNavbar({ onSearch, onShowStats, currentPath = "/" }: Prem
               className="flex items-center gap-3 hover:opacity-80 transition-opacity"
             >
               <div className="relative">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-600 flex items-center justify-center animate-float-slow">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-600 flex items-center justify-center ">
                   <Zap className="w-5 h-5 text-white" />
                 </div>
                 <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-pink-500 to-red-500 rounded-full animate-pulse-glow"></div>

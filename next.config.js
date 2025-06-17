@@ -1,7 +1,5 @@
-// next.config.ts
-import type { NextConfig } from 'next'
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -17,7 +15,7 @@ const nextConfig: NextConfig = {
       {
         protocol: 'http',
         hostname: '**', // Allow all HTTP domains (if needed)
-      }
+      },
     ],
     unoptimized: true,
   },
@@ -35,4 +33,4 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default nextConfig
+module.exports = nextConfig

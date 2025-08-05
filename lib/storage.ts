@@ -53,7 +53,7 @@ function initializeStorage() {
     if (!localStorage.getItem(USER_PREFERENCES_KEY)) {
       const defaultPrefs: UserPreferences = {
         preferredCategories: [],
-        preferredCountries: ["us"],
+        preferredCountries: ["in"],
         autoSummarize: false,
         readingGoal: 5,
         notifications: false,
@@ -175,7 +175,7 @@ export function getUserPreferences(): UserPreferences {
   if (typeof window === "undefined") {
     return {
       preferredCategories: [],
-      preferredCountries: ["us"],
+      preferredCountries: ["in"],
       autoSummarize: false,
       readingGoal: 5,
       notifications: false,
@@ -191,7 +191,7 @@ export function getUserPreferences(): UserPreferences {
     // Return and save default preferences
     const defaultPrefs: UserPreferences = {
       preferredCategories: [],
-      preferredCountries: ["us"],
+      preferredCountries: ["in"],
       autoSummarize: false,
       readingGoal: 5,
       notifications: false,
@@ -202,7 +202,7 @@ export function getUserPreferences(): UserPreferences {
     console.error("Error reading preferences:", error)
     return {
       preferredCategories: [],
-      preferredCountries: ["us"],
+      preferredCountries: ["in"],
       autoSummarize: false,
       readingGoal: 5,
       notifications: false,

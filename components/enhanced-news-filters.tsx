@@ -44,11 +44,11 @@ const CATEGORIES = [
 ]
 
 const COUNTRIES = [
+  { value: "in", label: "India", flag: "🇮🇳" },
   { value: "us", label: "United States", flag: "🇺🇸" },
   { value: "gb", label: "United Kingdom", flag: "🇬🇧" },
   { value: "ca", label: "Canada", flag: "🇨🇦" },
   { value: "au", label: "Australia", flag: "🇦🇺" },
-  { value: "in", label: "India", flag: "🇮🇳" },
   { value: "de", label: "Germany", flag: "🇩🇪" },
   { value: "fr", label: "France", flag: "🇫🇷" },
   { value: "jp", label: "Japan", flag: "🇯🇵" },

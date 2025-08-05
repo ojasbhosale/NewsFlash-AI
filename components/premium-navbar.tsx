@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState, useEffect } from "react"
-import { Menu, Search, Bell, BookOpen, BarChart3, Newspaper, Zap, } from "lucide-react"
+import { Menu, Search, Bell, BookOpen, BarChart3, Newspaper, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
@@ -19,29 +19,48 @@ interface PremiumNavbarProps {
   currentPath?: string
 }
 
+// Default stats to prevent hydration mismatch
+const defaultStats = {
+  totalArticlesRead: 0,
+  readingStreak: 0,
+  articlesReadToday: 0,
+  lastReadDate: ""
+}
+
 export function PremiumNavbar({ onSearch, onShowStats, currentPath = "/" }: PremiumNavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
-  const [stats, setStats] = useState(getReadingStats())
+  const [stats, setStats] = useState(defaultStats)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isClient, setIsClient] = useState(false)
   const router = useRouter()
 
+  // Handle client-side hydration
   useEffect(() => {
+    setIsClient(true)
+    setStats(getReadingStats())
+  }, [])
+
+  useEffect(() => {
+    if (!isClient) return
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10)
     }
 
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  }, [isClient])
 
   useEffect(() => {
+    if (!isClient) return
+
     const interval = setInterval(() => {
       setStats(getReadingStats())
     }, 30000)
 
     return () => clearInterval(interval)
-  }, [])
+  }, [isClient])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -54,6 +73,10 @@ export function PremiumNavbar({ onSearch, onShowStats, currentPath = "/" }: Prem
   const handleNavigation = (path: string) => {
     router.push(path)
     setIsMobileMenuOpen(false)
+  }
+
+  const handleStatsClick = () => {
+    onShowStats?.()
   }
 
   const navigationItems = [
@@ -140,11 +163,11 @@ export function PremiumNavbar({ onSearch, onShowStats, currentPath = "/" }: Prem
             {/* Right Actions */}
             <div className="flex items-center gap-2">
               {/* Reading Stats - Desktop Only */}
-              {stats.totalArticlesRead > 0 && (
+              {isClient && stats.totalArticlesRead > 0 && (
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={onShowStats}
+                  onClick={handleStatsClick}
                   className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800/50"
                 >
                   <BarChart3 className="w-4 h-4" />
@@ -246,7 +269,7 @@ export function PremiumNavbar({ onSearch, onShowStats, currentPath = "/" }: Prem
                       </div>
 
                       {/* Mobile Stats */}
-                      {stats.totalArticlesRead > 0 && (
+                      {isClient && stats.totalArticlesRead > 0 && (
                         <>
                           <Separator className="my-6" />
                           <div className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg">

@@ -17,11 +17,12 @@ import {
   Tag,
   ArrowUpRight,
 } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent,  CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import type { NewsArticle } from "@/types/news"
+// import { summarizeArticle } from "@/lib/news-api"
 import { textSummarizer } from "@/lib/text-summarizer"
 import { markArticleAsRead, isArticleRead, toggleBookmark, isArticleBookmarked, addReadingTime } from "@/lib/storage"
 import { useToast } from "@/hooks/use-toast"
@@ -88,15 +89,30 @@ export function PremiumNewsCard({ article, index }: PremiumNewsCardProps) {
   }, [article])
 
   const handleSummarize = async () => {
+    
     if (summary) return
 
     setIsLoading(true)
     try {
-      const content = article.content || article.description || article.title
-      if (!content) {
-        throw new Error("No content available to summarize")
-      }
+      let content = article.content
 
+// If content is missing or looks fake/garbled, fallback to description or title
+if (
+  !content ||
+  content.length < 50 || // Too short
+  content.includes("ONLY AVAILABLE IN PAID PLANS") || 
+  content.match(/(?:\.\w+){3,}/) || // detects weird dot patterns
+  content.split(" ").slice(0, 10).some(word => word.includes("http") || word.includes(".com"))
+) {
+  content = article.description || article.title
+}
+
+
+      
+      console.log("🧠 Cleaned content used for summary:", content)
+
+
+      // const result = await summarizeArticle(content)
       const result = textSummarizer.summarize(content, 2)
       const extractedKeywords = textSummarizer.extractKeywords(content, 4)
 
@@ -291,9 +307,9 @@ export function PremiumNewsCard({ article, index }: PremiumNewsCardProps) {
         </CardTitle>
 
         {/* Article Description */}
-        {article.description && (
+        {/* {article.description && (
           <CardDescription className="text-body line-clamp-2 leading-relaxed">{article.description}</CardDescription>
-        )}
+        )} */}
 
         {/* Author & Source */}
         {(article.creator?.[0] || article.source_id) && (

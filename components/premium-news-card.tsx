@@ -92,6 +92,8 @@ export function PremiumNewsCard({ article, index }: PremiumNewsCardProps) {
     
     if (summary) return
 
+    console.log("🧠 Starting summarization for article:", article.description)
+
     setIsLoading(true)
     try {
       let content = article.content
@@ -100,16 +102,14 @@ export function PremiumNewsCard({ article, index }: PremiumNewsCardProps) {
 if (
   !content ||
   content.length < 50 || // Too short
-  content.includes("ONLY AVAILABLE IN PAID PLANS") || 
-  content.match(/(?:\.\w+){3,}/) || // detects weird dot patterns
-  content.split(" ").slice(0, 10).some(word => word.includes("http") || word.includes(".com"))
+  content.includes("ONLY AVAILABLE IN PAID PLANS") 
 ) {
   content = article.description || article.title
 }
 
 
       
-      console.log("🧠 Cleaned content used for summary:", content)
+      
 
 
       // const result = await summarizeArticle(content)

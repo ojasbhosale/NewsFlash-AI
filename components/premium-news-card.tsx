@@ -113,8 +113,11 @@ if (
 
 
       // const result = await summarizeArticle(content)
-      const result = textSummarizer.summarize(content, 2)
+      const result = article.description || article.title
       const extractedKeywords = textSummarizer.extractKeywords(content, 4)
+
+  console.log("📜 Summarized content:", result)
+      console.log("🔑 Extracted keywords:", extractedKeywords)
 
       setSummary(result)
       setKeywords(extractedKeywords)

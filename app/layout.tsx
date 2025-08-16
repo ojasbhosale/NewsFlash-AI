@@ -25,6 +25,7 @@ export const metadata: Metadata = {
   description: "Get the latest news headlines with AI-powered summaries. Stay informed with intelligent news curation.",
   keywords: "news, headlines, AI, summaries, breaking news, technology, world news",
   authors: [{ name: "NewsFlash AI" }],
+  manifest: "/manifest.json",
 }
 
 // ✅ Move viewport to its own export
@@ -47,6 +48,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+      </head>
       <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
           <ErrorBoundary>
